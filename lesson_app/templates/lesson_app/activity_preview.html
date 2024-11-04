@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ activity.activity_name }} - Preview</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Preview of {{ activity.activity_name }}</h1>
+
+    <p><strong>Description:</strong> {{ activity.activity_description }}</p>
+    
+    <p><strong>Curriculum Standards:</strong> {{ activity.curriculum_standards }}</p>
+    
+    <p><strong>Materials:</strong> {{ activity.materials|linebreaks }}</p>
+    
+    <p><strong>Observation:</strong> {{ activity.observation }}</p>
+    
+    <p><strong>Question or Idea:</strong> {{ activity.question_idea }}</p>
+    
+    <p><strong>Hypothesis:</strong> {{ activity.hypothesis }}</p>
+    
+    <p><strong>Experiment/Test:</strong> {{ activity.experiment_test }}</p>
+    
+    <p><strong>Results and Analysis:</strong> {{ activity.results_analysis }}</p>
+    
+    <p><strong>Communication:</strong> {{ activity.communication }}</p>
+    
+    <a href="{% url 'manual_activity' %}">Go Back</a>
+
+</body>
+</html>

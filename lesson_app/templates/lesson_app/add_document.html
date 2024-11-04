@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+{% load static %}
+
+<head>
+    <title>Add Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Add a New Document</h1>
+
+    <form method="post" enctype="multipart/form-data">  <!-- Allow file uploads -->
+        <div class="button-container"></div>
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- This will now include the dropdown for document_type -->
+            <button type="submit">Add Document</button>
+        </div>
+    </form>
+    
+    <br>
+    <!-- Button to manually add an activity -->
+    <div class="button-container">
+    <a href="{% url 'manual_activity' %}">
+        <button type="button">Manually Enter Activity</button>
+    </div>
+    </a>
+    
+    <br>
+    <a href="{% url 'search' %}">Back to Search</a>
+</body>
+</html>

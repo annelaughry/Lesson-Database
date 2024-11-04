@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Correct jQuery include -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Activity</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Enter Activity Details</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="title">Activity Title</label>
+        {{ form.activity_name }} 
+
+        <!-- Country Dropdown -->
+        <label for="country">Country</label>
+        {{ form.country }} <!-- Ensure form field has correct ID in forms.py -->
+
+        <!-- Grade Dropdown -->
+        <label for="grade">Grade</label>
+        {{ form.grade_level }} <!-- Ensure form field has correct ID in forms.py -->
+
+        <!-- Subject Dropdown -->
+        <label for="subject">Subject</label>
+        {{ form.subject }} <!-- Ensure form field has correct ID in forms.py -->
+    
+        <!-- Standards Checkboxes (this will be updated dynamically) -->
+        <label for="standard">Standards</label>
+        <div id="standards-checkboxes">
+            <!-- Standards will be added here dynamically -->
+        </div>
+
+        <label for="entered_by">Created By:</label>
+        {{ form.entered_by }}
+
+        <label for="materials">Materials</label>
+        <div id="materials-container">
+            <!-- Initial input box -->
+            <div class="material-item">
+                <input type="text" name="materials" class="materials-input" required>
+            </div>
+        </div>
+        <button type="button" id="add-material">Add another material</button>
+
+        <label for="observation">Observation</label>
+        {{ form.observation }}
+
+        <label for="question_idea">Question or Idea</label>
+        {{ form.question_idea }}
+
+        <label for="hypothesis">Hypothesis</label>
+        {{ form.hypothesis }}
+
+        <label for="experiment_test">Experiment/Test</label>
+        {{ form.experiment_test }}
+
+        <label for="results_analysis">Results and Analysis</label>
+        {{ form.results_analysis }}
+
+        <label for="communication">Communication</label>
+        {{ form.communication }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Function to get CSRF token from cookie
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            const csrftoken = getCookie('csrftoken');  // Get the CSRF token from the cookie
+
+            // Function to fetch and update standards when country, grade, or subject changes
+            function updateStandards() {
+                var country = $('#country').val();
+                var grade = $('#grade').val();
+                var subject = $('#subject').val();
+
+                console.log("Country: " + country + ", Grade: " + grade + ", Subject: " + subject); // Debug: log values
+
+                if (country && grade && subject) {
+                    $.ajax({
+                        url: "{% url 'get_standards' %}",  // Adjust this if necessary
+                        data: {
+                            'country': country,
+                            'grade': grade,
+                            'subject': subject
+                        },
+                        type: 'GET',  // You can change to 'POST' if you want
+                        headers: {
+                            'X-CSRFToken': csrftoken  // Include the CSRF token in the request header
+                        },
+                        success: function(data) {
+                            console.log(data); // Debug: log returned data
+                            var checkboxesDiv = $('#standards-checkboxes');
+                            checkboxesDiv.empty(); // Clear previous options
+
+                            $.each(data, function(index, standard) {
+                                checkboxesDiv.append(
+                                    '<div>' +
+                                    '<input type="checkbox" id="standard-' + standard.id + '" name="standards" value="' + standard.id + '">' +
+                                    '<label for="standard-' + standard.id + '">' + standard.code + ' - ' + standard.description + '</label>' +
+                                    '</div>'
+                                );
+                            });
+                        }
+                    });
+                }
+            }
+
+            // Bind the update function to the change event for country, grade, and subject
+            $('#country').change(updateStandards);
+            $('#grade').change(updateStandards);
+            $('#subject').change(updateStandards);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Add a new material input when the "Add another material" button is clicked
+            $('#add-material').click(function() {
+                // Append a new input box within a new div for better line separation
+                $('#materials-container').append('<div class="material-item"><input type="text" name="materials" class="materials-input" required></div>');
+            });
+        });
+    </script>
+
+</body>
+</html>

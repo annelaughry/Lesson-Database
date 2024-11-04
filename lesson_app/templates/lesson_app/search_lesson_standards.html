@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Lesson Standards</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Search Lesson Standards</h1>
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Results</h2>
+    <ul>
+        {% for standard in results %}
+            <li><strong>{{ standard.code }}</strong><br>
+                {{ standard.description }}</li>
+        {% empty %}
+            <p>No standards found matching your search criteria.</p>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="{% url 'search' %}">Back to Search</a>
+</body>
+</html>

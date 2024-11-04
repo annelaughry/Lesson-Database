@@ -1,0 +1,112 @@
+body, h1, p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; 
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;       /* Centers content vertically */
+    margin: 0;                 /* Remove default body margin */
+    background-color: #f0f0f0; /* Background color */
+    flex-direction: column;    /* Stack elements vertically */
+    text-align: center;        /* Ensure text is centered */
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10;
+    max-width: 1000px;  /* Adjust the width as needed */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+#standards-checkboxes div {
+    margin-bottom: 15px; /* Increase space between each checkbox */
+    display: flex;       /* Ensure checkbox and label are on the same line */
+    align-items: center; /* Vertically align the checkbox with the label */
+}
+
+#standards-checkboxes label {
+    margin-left: 15px; /* Increase the space between the checkbox and the label text */
+    white-space: nowrap; /* Prevent the label text from wrapping to a new line */
+}
+  
+ header {
+    height: 800px;
+    width: 100%;
+    background-image: url('link'); 
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  button {
+    padding: 12px 24px;
+    margin: 5px;
+    background-color: #ee4266;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .button-container {
+    display: flex;
+    margin-top: 10px;  /* Add some margin for spacing */
+    justify-content: center;
+  }
+  
+  button:hover {
+    background-color: #780a22;
+    transform: scale(1.05);
+  }
+
+  section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 70px;
+  }
+  
+  div {
+    flex: 1;
+    margin: 10px;
+    max-width: 30%;
+    transition: transform 0.3s ease;
+  }
+  
+  img {
+    width: 300px; 
+    height: 200px; 
+    object-fit: cover;
+    height: auto;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .img:hover {
+    transform: scale(1.05);
+  }
+  
+ 

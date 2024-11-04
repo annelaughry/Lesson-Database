@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+{% load static %}
+
+<head>
+    <title>Document Search</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Search YSA Activites</h1>
+    
+    <!-- Search Form -->
+    <div class="button-container">
+    <form method="get">
+        {{ form.as_p }}
+
+        <button type="submit">Search</button>
+    </div>
+
+    </form>
+
+    <h2>Results</h2>
+    
+    <!-- If there is a search query, display the results -->
+    {% if query or activity_type %}
+        <p>Search results for "{{ query }}" with activity type "{{ form.activity_type.value }}":</p>
+        <ul>
+            {% for document in results %}
+                <li>
+                    <strong>{{ document.title }}</strong> ({{ document.document_type }})<br>
+                    
+                    <!-- Show the content if available -->
+                    {% if document.description %}
+                        <p>{{ document.description|truncatewords:50 }}</p>
+                        <p><a href="#" onclick="alert('{{ document.description|escapejs }}'); return false;">View Full Content</a></p>
+                    {% endif %}
+                    
+                    <!-- Show a link to download the PDF if it exists -->
+                    {% if document.upload_file %}
+                        <p><a href="{{ document.upload_file.url }}" download>Download PDF</a></p>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <p>No documents found.</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <br>
+    <a href="{% url 'add_document' %}">Add a New Document</a>
+</body>
+</html>
+
+
+
